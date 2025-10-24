@@ -34,16 +34,21 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-          <Button onClick={handleLogout} variant="outline">
+    <main className="min-h-screen bg-gradient-to-br from-[#064e3b] via-[#065f46] to-[#047857]">
+      <div className="warm-card rounded-none shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#4ade80] to-[#22c55e] bg-clip-text text-transparent">
+            Admin Dashboard
+          </h1>
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 sm:px-6 sm:py-2.5 warm-button rounded-lg text-white font-semibold text-sm sm:text-base"
+          >
             Logout
-          </Button>
+          </button>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
         <AdminDashboard />
       </div>
     </main>

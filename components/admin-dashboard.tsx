@@ -100,51 +100,53 @@ export function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Registrations</CardTitle>
-          <CardDescription>Total: {registrations.length} registrations</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {registrations.length === 0 ? (
-            <p className="text-center text-gray-500 py-8">No registrations yet</p>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="border-b">
-                  <tr>
-                    <th className="text-left py-3 px-4 font-semibold">Full Name</th>
-                    <th className="text-left py-3 px-4 font-semibold">Email</th>
-                    <th className="text-left py-3 px-4 font-semibold">Actions</th>
+      <div className="warm-card rounded-2xl p-6 sm:p-8">
+        <div className="mb-6">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#d1fae5] mb-2">Registrations</h2>
+          <p className="text-[#a7f3d0] text-sm sm:text-base">Total: {registrations.length} registrations</p>
+        </div>
+        
+        {registrations.length === 0 ? (
+          <p className="text-center text-[#a7f3d0] py-12 text-base sm:text-lg">No registrations yet</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm sm:text-base">
+              <thead className="border-b border-[#4ade80]/30">
+                <tr>
+                  <th className="text-left py-3 sm:py-4 px-3 sm:px-4 font-semibold text-[#4ade80]">Full Name</th>
+                  <th className="text-left py-3 sm:py-4 px-3 sm:px-4 font-semibold text-[#4ade80]">Email</th>
+                  <th className="text-left py-3 sm:py-4 px-3 sm:px-4 font-semibold text-[#4ade80]">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {registrations.map((registration) => (
+                  <tr key={registration._id} className="border-b border-[#065f46] hover:bg-[#065f46]/30 transition-colors">
+                    <td className="py-3 sm:py-4 px-3 sm:px-4 text-[#d1fae5]">{registration.fullName}</td>
+                    <td className="py-3 sm:py-4 px-3 sm:px-4 text-[#d1fae5]">{registration.email}</td>
+                    <td className="py-3 sm:py-4 px-3 sm:px-4 space-x-2">
+                      <EditRegistrationDialog
+                        registration={registration}
+                        onSave={handleSaveEdit}
+                        trigger={
+                          <button className="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium text-xs sm:text-sm transition-colors">
+                            Edit
+                          </button>
+                        }
+                      />
+                      <button 
+                        onClick={() => handleDelete(registration._id)}
+                        className="px-3 py-1.5 sm:px-4 sm:py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium text-xs sm:text-sm transition-colors"
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {registrations.map((registration) => (
-                    <tr key={registration._id} className="border-b hover:bg-gray-50">
-                      <td className="py-3 px-4">{registration.fullName}</td>
-                      <td className="py-3 px-4">{registration.email}</td>
-                      <td className="py-3 px-4 space-x-2">
-                        <EditRegistrationDialog
-                          registration={registration}
-                          onSave={handleSaveEdit}
-                          trigger={
-                            <Button variant="outline" size="sm">
-                              Edit
-                            </Button>
-                          }
-                        />
-                        <Button variant="destructive" size="sm" onClick={() => handleDelete(registration._id)}>
-                          Delete
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
