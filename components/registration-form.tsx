@@ -3,6 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { useToast } from "@/hooks/use-toast"
+import { User, Mail, LogIn } from "lucide-react"
 
 export function RegistrationForm() {
   const { toast } = useToast()
@@ -57,49 +58,60 @@ export function RegistrationForm() {
   }
 
   return (
-    <div className="neomorphism rounded-3xl p-8">
+    <div className="warm-card rounded-3xl p-8">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-[#2c3e50] mb-2">Registration Form</h2>
-        <p className="text-[#7c8798]">Please provide your information below</p>
+        <h2 className="text-2xl font-bold text-[#f5e6d3] mb-2">Registration Form</h2>
+        <p className="text-[#c9b8a3]">Please provide your information below</p>
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
-          <label htmlFor="fullName" className="block text-sm font-semibold text-[#2c3e50] mb-2">
+          <label htmlFor="fullName" className="block text-sm font-semibold text-[#f5e6d3] mb-2">
             Full Name
           </label>
-          <input
-            id="fullName"
-            name="fullName"
-            placeholder="John Doe"
-            value={formData.fullName}
-            onChange={handleInputChange}
-            required
-            className="w-full px-4 py-3 neomorphism-inset rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-[#667eea] bg-transparent text-[#2c3e50] placeholder:text-[#7c8798]"
-          />
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <User className="h-5 w-5 text-[#ffa726]" />
+            </div>
+            <input
+              id="fullName"
+              name="fullName"
+              placeholder="Enter your full name"
+              value={formData.fullName}
+              onChange={handleInputChange}
+              required
+              className="w-full pl-12 pr-4 py-3 warm-input rounded-xl"
+            />
+          </div>
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email" className="block text-sm font-semibold text-[#2c3e50] mb-2">
+          <label htmlFor="email" className="block text-sm font-semibold text-[#f5e6d3] mb-2">
             Email
           </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="john@example.com"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-            className="w-full px-4 py-3 neomorphism-inset rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-[#667eea] bg-transparent text-[#2c3e50] placeholder:text-[#7c8798]"
-          />
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Mail className="h-5 w-5 text-[#ffa726]" />
+            </div>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Enter your email address"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              className="w-full pl-12 pr-4 py-3 warm-input rounded-xl"
+            />
+          </div>
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 px-6 neomorphism-button rounded-xl text-white font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-3 px-6 warm-button rounded-xl text-white font-semibold text-lg flex items-center justify-center gap-2"
         >
+          <LogIn className="h-5 w-5" />
           {loading ? "Submitting..." : "Submit Registration"}
         </button>
       </form>

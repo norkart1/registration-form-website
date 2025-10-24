@@ -8,8 +8,11 @@ A full-stack registration form application built with Next.js 16, featuring simp
 
 ## Recent Changes
 
-### October 24, 2025 - Neomorphism Design & Performance Update
-- Implemented neomorphism design theme with soft shadows and modern aesthetics
+### October 24, 2025 - Warm Theme Design & Performance Update
+- Implemented warm brown/orange gradient theme inspired by team login design
+- Added lucide-react icons (User, Mail, LogIn) to enhance user experience
+- Created glassmorphic card design with warm color palette
+- Orange gradient button with hover effects
 - Added Anek Latin font from Google Fonts for improved typography
 - Fixed slow form submission by implementing MongoDB connection pooling
 - Created shared MongoDB client using singleton pattern for better performance
