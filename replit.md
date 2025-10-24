@@ -2,19 +2,27 @@
 
 ## Overview
 
-A full-stack registration form application built with Next.js 16, featuring user registration with country/state selection, an admin dashboard for managing registrations, and MongoDB for data persistence. The application includes client-side form validation, responsive design using Tailwind CSS and shadcn/ui components, and basic token-based admin authentication.
+A full-stack registration form application built with Next.js 16, featuring simple user registration (Full Name and Email only), an admin dashboard for managing registrations, and MongoDB for data persistence. The application includes client-side form validation, responsive design using Tailwind CSS and shadcn/ui components, and basic token-based admin authentication.
 
 **Platform**: Running on Replit (migrated from Vercel on October 24, 2025)
 
 ## Recent Changes
 
+### October 24, 2025 - Form Simplification
+- Simplified registration form to only collect Full Name and Email (removed country, state, and address fields)
+- Updated API routes to handle simplified data structure
+- Updated admin dashboard to display only Full Name and Email columns
+- Updated edit dialog to only show Full Name and Email fields
+
 ### October 24, 2025 - Replit Migration
 - Migrated project from Vercel to Replit environment
+- Installed all dependencies using npm with --legacy-peer-deps flag
 - Updated Next.js dev and production servers to bind to 0.0.0.0:5000 for Replit compatibility
 - Removed deprecated eslint configuration from next.config.mjs (Next.js 16 compatibility)
 - Updated TypeScript from 5.0.2 to 5.9.3 to resolve Next.js compatibility warnings
 - Configured deployment settings for Replit autoscale deployment
 - Connected MongoDB via MONGODB_URI environment secret
+- Verified workflow is running successfully
 
 ## User Preferences
 
@@ -82,9 +90,6 @@ Preferred communication style: Simple, everyday language.
   _id: ObjectId,
   fullName: string,
   email: string,
-  address: string,
-  country: string,
-  state: string,
   createdAt: Date,
   updatedAt: Date (only on updates)
 }

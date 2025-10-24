@@ -13,7 +13,7 @@ async function getDatabase() {
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
   try {
     const body = await request.json()
-    const { fullName, email, address, country, state } = body
+    const { fullName, email } = body
 
     const db = await getDatabase()
     const result = await db.collection(COLLECTION_NAME).updateOne(
@@ -22,9 +22,6 @@ export async function PUT(request: Request, { params }: { params: { id: string }
         $set: {
           fullName,
           email,
-          address,
-          country,
-          state,
           updatedAt: new Date(),
         },
       },

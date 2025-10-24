@@ -6,7 +6,6 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {
   Dialog,
   DialogContent,
@@ -15,15 +14,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { COUNTRIES, STATES } from "@/lib/countries-states"
 
 interface Registration {
   _id: string
   fullName: string
   email: string
-  address: string
-  country: string
-  state: string
   createdAt: string
 }
 
@@ -36,28 +31,16 @@ interface EditRegistrationDialogProps {
 export function EditRegistrationDialog({ registration, onSave, trigger }: EditRegistrationDialogProps) {
   const [open, setOpen] = useState(false)
   const [formData, setFormData] = useState(registration)
-  const [selectedCountry, setSelectedCountry] = useState(registration.country)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleCountryChange = (value: string) => {
-    setSelectedCountry(value)
-    setFormData((prev) => ({ ...prev, country: value, state: "" }))
-  }
-
-  const handleStateChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, state: value }))
-  }
-
   const handleSave = () => {
     onSave(formData)
     setOpen(false)
   }
-
-  const statesForCountry = selectedCountry ? STATES[selectedCountry as keyof typeof STATES] || [] : []
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -76,43 +59,6 @@ export function EditRegistrationDialog({ registration, onSave, trigger }: EditRe
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="address">Address</Label>
-            <Input id="address" name="address" value={formData.address} onChange={handleInputChange} />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="country">Country</Label>
-            <Select value={selectedCountry} onValueChange={handleCountryChange}>
-              <SelectTrigger id="country">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {COUNTRIES.map((country) => (
-                  <SelectItem key={country} value={country}>
-                    {country}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="state">State/Province</Label>
-            <Select value={formData.state} onValueChange={handleStateChange}>
-              <SelectTrigger id="state">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {statesForCountry.map((state) => (
-                  <SelectItem key={state} value={state}>
-                    {state}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
           </div>
 
           <div className="flex gap-2 justify-end pt-4">

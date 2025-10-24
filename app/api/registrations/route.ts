@@ -24,9 +24,9 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { fullName, email, address, country, state } = body
+    const { fullName, email } = body
 
-    if (!fullName || !email || !address || !country || !state) {
+    if (!fullName || !email) {
       return Response.json({ error: "Missing required fields" }, { status: 400 })
     }
 
@@ -34,9 +34,6 @@ export async function POST(request: Request) {
     const result = await db.collection(COLLECTION_NAME).insertOne({
       fullName,
       email,
-      address,
-      country,
-      state,
       createdAt: new Date(),
     })
 

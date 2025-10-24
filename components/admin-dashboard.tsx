@@ -10,9 +10,6 @@ interface Registration {
   _id: string
   fullName: string
   email: string
-  address: string
-  country: string
-  state: string
   createdAt: string
 }
 
@@ -118,9 +115,6 @@ export function AdminDashboard() {
                   <tr>
                     <th className="text-left py-3 px-4 font-semibold">Full Name</th>
                     <th className="text-left py-3 px-4 font-semibold">Email</th>
-                    <th className="text-left py-3 px-4 font-semibold">Address</th>
-                    <th className="text-left py-3 px-4 font-semibold">Country</th>
-                    <th className="text-left py-3 px-4 font-semibold">State</th>
                     <th className="text-left py-3 px-4 font-semibold">Actions</th>
                   </tr>
                 </thead>
@@ -129,9 +123,6 @@ export function AdminDashboard() {
                     <tr key={registration._id} className="border-b hover:bg-gray-50">
                       <td className="py-3 px-4">{registration.fullName}</td>
                       <td className="py-3 px-4">{registration.email}</td>
-                      <td className="py-3 px-4">{registration.address}</td>
-                      <td className="py-3 px-4">{registration.country}</td>
-                      <td className="py-3 px-4">{registration.state}</td>
                       <td className="py-3 px-4 space-x-2">
                         <EditRegistrationDialog
                           registration={registration}
