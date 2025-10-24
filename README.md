@@ -7,7 +7,7 @@ A full-stack registration form application with MongoDB database, admin dashboar
 - **Registration Form**: Collect user information (full name, email, address, country, state)
 - **Dynamic Dropdowns**: Country and state dropdowns with automatic state population based on country selection
 - **Admin Dashboard**: View, edit, and delete registrations
-- **Admin Authentication**: Secure login with username and password (admin/12345)
+- **Admin Authentication**: Secure login with database-stored credentials and bcrypt password hashing
 - **Responsive Design**: Works seamlessly on all devices (mobile, tablet, desktop)
 - **MongoDB Integration**: Persistent data storage
 
@@ -59,12 +59,18 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Admin Dashboard
 1. Navigate to [http://localhost:3000/admin/login](http://localhost:3000/admin/login)
-2. Login with credentials:
-   - Username: `admin`
-   - Password: `12345`
+2. Login with your admin credentials (created via setup API)
 3. View all registrations in a table format
 4. **Edit**: Click the Edit button to modify registration details
 5. **Delete**: Click the Delete button to remove a registration
+
+### Creating Admin Users
+To create an admin user, make a POST request to `/api/admin/setup`:
+\`\`\`bash
+curl -X POST http://localhost:3000/api/admin/setup \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"your_secure_password"}'
+\`\`\`
 
 ## Project Structure
 
@@ -103,7 +109,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - `DELETE /api/registrations/[id]` - Delete registration
 
 ### Admin
-- `POST /api/admin/login` - Admin login
+- `POST /api/admin/login` - Admin login (checks MongoDB)
+- `POST /api/admin/setup` - Create new admin user (bcrypt hashed password)
 
 ## Technologies Used
 
@@ -123,10 +130,12 @@ The application is fully responsive and optimized for:
 
 ## Security Notes
 
-- Admin credentials are hardcoded for demo purposes. In production, use proper authentication.
-- Implement proper password hashing and JWT tokens for production.
-- Add CORS and rate limiting for API endpoints.
+- Admin credentials are stored in MongoDB with bcrypt password hashing (10 salt rounds).
+- Passwords are never stored in plain text.
+- Consider adding JWT tokens with expiration for enhanced security.
+- Add CORS and rate limiting for API endpoints in production.
 - Validate all inputs on both client and server side.
+- Protect the `/api/admin/setup` endpoint in production (e.g., one-time use or admin-only access).
 
 ## Deployment
 

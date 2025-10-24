@@ -23,7 +23,7 @@ This is a complete, production-ready registration form website with:
 
 ✅ **Admin Login** (`/admin/login`)
 - Secure login page
-- Credentials: admin / 12345
+- Database-stored credentials with bcrypt hashing
 - Token-based authentication
 - Dark theme UI
 
@@ -32,7 +32,8 @@ This is a complete, production-ready registration form website with:
 - GET /api/registrations - Fetch all registrations
 - PUT /api/registrations/[id] - Update registration
 - DELETE /api/registrations/[id] - Delete registration
-- POST /api/admin/login - Admin authentication
+- POST /api/admin/login - Admin authentication (MongoDB + bcrypt)
+- POST /api/admin/setup - Create admin users (bcrypt hashed)
 
 ✅ **Database**
 - MongoDB integration
@@ -66,16 +67,19 @@ npm install
 npm run dev
 \`\`\`
 
-### 3. Access the App
+### 3. Create Admin User
+
+\`\`\`bash
+curl -X POST http://localhost:3000/api/admin/setup \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"your_secure_password"}'
+\`\`\`
+
+### 4. Access the App
 
 - **Registration Form**: http://localhost:3000
 - **Admin Login**: http://localhost:3000/admin/login
 - **Admin Dashboard**: http://localhost:3000/admin/dashboard
-
-### 4. Test Admin Login
-
-- Username: `admin`
-- Password: `12345`
 
 ## File Structure
 
@@ -152,6 +156,16 @@ registration-app/
 }
 \`\`\`
 
+### Admin Users Collection
+\`\`\`javascript
+{
+  _id: ObjectId,
+  username: String,
+  password: String (bcrypt hashed),
+  createdAt: Date
+}
+\`\`\`
+
 ## API Documentation
 
 ### POST /api/registrations
@@ -199,11 +213,11 @@ Update a registration
 Delete a registration (returns 200 on success)
 
 ### POST /api/admin/login
-Admin authentication
+Admin authentication (checks MongoDB with bcrypt)
 \`\`\`json
 {
-  "username": "admin",
-  "password": "12345"
+  "username": "your_username",
+  "password": "your_password"
 }
 \`\`\`
 Response:
@@ -214,13 +228,30 @@ Response:
 }
 \`\`\`
 
+### POST /api/admin/setup
+Create new admin user (bcrypt hashed)
+\`\`\`json
+{
+  "username": "admin",
+  "password": "secure_password"
+}
+\`\`\`
+Response:
+\`\`\`json
+{
+  "success": true,
+  "message": "Admin user created successfully"
+}
+\`\`\`
+
 ## Customization
 
-### Change Admin Credentials
-Edit `app/api/admin/login/route.ts`:
-\`\`\`typescript
-const ADMIN_USERNAME = "your_username"
-const ADMIN_PASSWORD = "your_password"
+### Add Admin Users
+Use the setup API to create admin users:
+\`\`\`bash
+curl -X POST http://localhost:3000/api/admin/setup \
+  -H "Content-Type: application/json" \
+  -d '{"username":"newadmin","password":"secure_password"}'
 \`\`\`
 
 ### Add More Countries/States
@@ -233,10 +264,11 @@ Edit `lib/countries-states.ts` and add to the COUNTRIES and STATES objects.
 
 ## Production Checklist
 
-- [ ] Change admin credentials
+- [x] Password hashing with bcrypt implemented
+- [ ] Protect `/api/admin/setup` endpoint (e.g., one-time use, admin-only)
 - [ ] Set up proper MongoDB Atlas cluster
 - [ ] Add environment variables to deployment platform
-- [ ] Implement proper authentication (JWT, OAuth)
+- [ ] Implement proper authentication (JWT with expiration)
 - [ ] Add rate limiting to API endpoints
 - [ ] Enable HTTPS
 - [ ] Set up error logging
