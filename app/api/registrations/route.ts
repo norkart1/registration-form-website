@@ -1,18 +1,12 @@
-import { MongoClient } from "mongodb"
+import clientPromise from "@/lib/mongodb"
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017"
 const DB_NAME = "registration_db"
 const COLLECTION_NAME = "registrations"
 
-async function getDatabase() {
-  const client = new MongoClient(MONGODB_URI)
-  await client.connect()
-  return client.db(DB_NAME)
-}
-
 export async function GET() {
   try {
-    const db = await getDatabase()
+    const client = await clientPromise
+    const db = client.db(DB_NAME)
     const registrations = await db.collection(COLLECTION_NAME).find({}).toArray()
     return Response.json(registrations)
   } catch (error) {
@@ -30,7 +24,8 @@ export async function POST(request: Request) {
       return Response.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    const db = await getDatabase()
+    const client = await clientPromise
+    const db = client.db(DB_NAME)
     const result = await db.collection(COLLECTION_NAME).insertOne({
       fullName,
       email,

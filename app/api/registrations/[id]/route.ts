@@ -1,21 +1,16 @@
-import { MongoClient, ObjectId } from "mongodb"
+import { ObjectId } from "mongodb"
+import clientPromise from "@/lib/mongodb"
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017"
 const DB_NAME = "registration_db"
 const COLLECTION_NAME = "registrations"
-
-async function getDatabase() {
-  const client = new MongoClient(MONGODB_URI)
-  await client.connect()
-  return client.db(DB_NAME)
-}
 
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
   try {
     const body = await request.json()
     const { fullName, email } = body
 
-    const db = await getDatabase()
+    const client = await clientPromise
+    const db = client.db(DB_NAME)
     const result = await db.collection(COLLECTION_NAME).updateOne(
       { _id: new ObjectId(params.id) },
       {
@@ -40,7 +35,8 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
-    const db = await getDatabase()
+    const client = await clientPromise
+    const db = client.db(DB_NAME)
     const result = await db.collection(COLLECTION_NAME).deleteOne({
       _id: new ObjectId(params.id),
     })

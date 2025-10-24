@@ -1,12 +1,7 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
 
 export function RegistrationForm() {
@@ -62,43 +57,52 @@ export function RegistrationForm() {
   }
 
   return (
-    <Card className="w-full shadow-lg">
-      <CardHeader>
-        <CardTitle>Registration Form</CardTitle>
-        <CardDescription>Please provide your information below</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="fullName">Full Name</Label>
-            <Input
-              id="fullName"
-              name="fullName"
-              placeholder="John Doe"
-              value={formData.fullName}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
+    <div className="neomorphism rounded-3xl p-8">
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-[#2c3e50] mb-2">Registration Form</h2>
+        <p className="text-[#7c8798]">Please provide your information below</p>
+      </div>
+      
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="space-y-2">
+          <label htmlFor="fullName" className="block text-sm font-semibold text-[#2c3e50] mb-2">
+            Full Name
+          </label>
+          <input
+            id="fullName"
+            name="fullName"
+            placeholder="John Doe"
+            value={formData.fullName}
+            onChange={handleInputChange}
+            required
+            className="w-full px-4 py-3 neomorphism-inset rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-[#667eea] bg-transparent text-[#2c3e50] placeholder:text-[#7c8798]"
+          />
+        </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="john@example.com"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
+        <div className="space-y-2">
+          <label htmlFor="email" className="block text-sm font-semibold text-[#2c3e50] mb-2">
+            Email
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="john@example.com"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+            className="w-full px-4 py-3 neomorphism-inset rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-[#667eea] bg-transparent text-[#2c3e50] placeholder:text-[#7c8798]"
+          />
+        </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Submitting..." : "Submit Registration"}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full py-3 px-6 neomorphism-button rounded-xl text-white font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? "Submitting..." : "Submit Registration"}
+        </button>
+      </form>
+    </div>
   )
 }

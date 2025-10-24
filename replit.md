@@ -8,6 +8,13 @@ A full-stack registration form application built with Next.js 16, featuring simp
 
 ## Recent Changes
 
+### October 24, 2025 - Neomorphism Design & Performance Update
+- Implemented neomorphism design theme with soft shadows and modern aesthetics
+- Added Anek Latin font from Google Fonts for improved typography
+- Fixed slow form submission by implementing MongoDB connection pooling
+- Created shared MongoDB client using singleton pattern for better performance
+- Updated all API routes to use pooled MongoDB connections
+
 ### October 24, 2025 - Form Simplification
 - Simplified registration form to only collect Full Name and Email (removed country, state, and address fields)
 - Updated API routes to handle simplified data structure
