@@ -58,13 +58,13 @@ export function RegistrationForm() {
   }
 
   return (
-    <div className="warm-card rounded-3xl p-8">
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-[#d1fae5] mb-2">Registration Form</h2>
-        <p className="text-[#a7f3d0]">Please provide your information below</p>
+    <div className="warm-card rounded-2xl p-6">
+      <div className="mb-6">
+        <h2 className="text-xl font-bold text-[#d1fae5] mb-1">Registration Form</h2>
+        <p className="text-[#a7f3d0] text-sm">Please provide your information below</p>
       </div>
       
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <label htmlFor="fullName" className="block text-sm font-semibold text-[#d1fae5] mb-2">
             Full Name
@@ -80,7 +80,7 @@ export function RegistrationForm() {
               value={formData.fullName}
               onChange={handleInputChange}
               required
-              className="w-full pl-12 pr-4 py-3 warm-input rounded-xl"
+              className="w-full pl-12 pr-4 py-2.5 warm-input rounded-lg text-sm"
             />
           </div>
         </div>
@@ -101,7 +101,7 @@ export function RegistrationForm() {
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="w-full pl-12 pr-4 py-3 warm-input rounded-xl"
+              className="w-full pl-12 pr-4 py-2.5 warm-input rounded-lg text-sm"
             />
           </div>
         </div>
@@ -109,9 +109,9 @@ export function RegistrationForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 px-6 warm-button rounded-xl text-white font-semibold text-lg flex items-center justify-center gap-2"
+          className="w-full py-2.5 px-4 warm-button rounded-lg text-white font-semibold text-base flex items-center justify-center gap-2"
         >
-          <LogIn className="h-5 w-5" />
+          <LogIn className="h-4 w-4" />
           {loading ? "Submitting..." : "Submit Registration"}
         </button>
       </form>
