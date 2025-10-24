@@ -60,18 +60,18 @@ export function RegistrationForm() {
   return (
     <div className="warm-card rounded-3xl p-8">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-[#f5e6d3] mb-2">Registration Form</h2>
-        <p className="text-[#c9b8a3]">Please provide your information below</p>
+        <h2 className="text-2xl font-bold text-[#d1fae5] mb-2">Registration Form</h2>
+        <p className="text-[#a7f3d0]">Please provide your information below</p>
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
-          <label htmlFor="fullName" className="block text-sm font-semibold text-[#f5e6d3] mb-2">
+          <label htmlFor="fullName" className="block text-sm font-semibold text-[#d1fae5] mb-2">
             Full Name
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <User className="h-5 w-5 text-[#ffa726]" />
+              <User className="h-5 w-5 text-[#4ade80]" />
             </div>
             <input
               id="fullName"
@@ -86,12 +86,12 @@ export function RegistrationForm() {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email" className="block text-sm font-semibold text-[#f5e6d3] mb-2">
+          <label htmlFor="email" className="block text-sm font-semibold text-[#d1fae5] mb-2">
             Email
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Mail className="h-5 w-5 text-[#ffa726]" />
+              <Mail className="h-5 w-5 text-[#10b981]" />
             </div>
             <input
               id="email"
