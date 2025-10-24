@@ -12,6 +12,9 @@ const anekLatin = Anek_Latin({
 export const metadata: Metadata = {
   title: 'Registration App',
   description: 'Join our community',
+  icons: {
+    icon: '/icon',
+  },
 }
 
 export default function RootLayout({
