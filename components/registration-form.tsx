@@ -58,20 +58,20 @@ export function RegistrationForm() {
   }
 
   return (
-    <div className="warm-card rounded-2xl p-6">
-      <div className="mb-6">
-        <h2 className="text-xl font-bold text-[#d1fae5] mb-1">Registration Form</h2>
-        <p className="text-[#a7f3d0] text-sm">Please provide your information below</p>
+    <div className="warm-card rounded-2xl p-6 sm:p-8 lg:p-10">
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-xl sm:text-2xl font-bold text-[#d1fae5] mb-1 sm:mb-2">Registration Form</h2>
+        <p className="text-[#a7f3d0] text-sm sm:text-base">Please provide your information below</p>
       </div>
       
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
         <div className="space-y-2">
-          <label htmlFor="fullName" className="block text-sm font-semibold text-[#d1fae5] mb-2">
+          <label htmlFor="fullName" className="block text-sm sm:text-base font-semibold text-[#d1fae5] mb-2">
             Full Name
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <User className="h-5 w-5 text-[#4ade80]" />
+              <User className="h-5 w-5 sm:h-6 sm:w-6 text-[#4ade80]" />
             </div>
             <input
               id="fullName"
@@ -80,18 +80,18 @@ export function RegistrationForm() {
               value={formData.fullName}
               onChange={handleInputChange}
               required
-              className="w-full pl-12 pr-4 py-2.5 warm-input rounded-lg text-sm"
+              className="w-full pl-12 pr-4 py-2.5 sm:py-3 warm-input rounded-lg text-sm sm:text-base"
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email" className="block text-sm font-semibold text-[#d1fae5] mb-2">
+          <label htmlFor="email" className="block text-sm sm:text-base font-semibold text-[#d1fae5] mb-2">
             Email
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Mail className="h-5 w-5 text-[#10b981]" />
+              <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-[#10b981]" />
             </div>
             <input
               id="email"
@@ -101,7 +101,7 @@ export function RegistrationForm() {
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="w-full pl-12 pr-4 py-2.5 warm-input rounded-lg text-sm"
+              className="w-full pl-12 pr-4 py-2.5 sm:py-3 warm-input rounded-lg text-sm sm:text-base"
             />
           </div>
         </div>
@@ -109,9 +109,9 @@ export function RegistrationForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2.5 px-4 warm-button rounded-lg text-white font-semibold text-base flex items-center justify-center gap-2"
+          className="w-full py-3 sm:py-3.5 px-4 warm-button rounded-lg text-white font-semibold text-base sm:text-lg flex items-center justify-center gap-2 mt-2"
         >
-          <LogIn className="h-4 w-4" />
+          <LogIn className="h-4 w-4 sm:h-5 sm:w-5" />
           {loading ? "Submitting..." : "Submit Registration"}
         </button>
       </form>
