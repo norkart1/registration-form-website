@@ -109,41 +109,43 @@ export function AdminDashboard() {
         {registrations.length === 0 ? (
           <p className="text-center text-[#a7f3d0] py-12 text-base sm:text-lg">No registrations yet</p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm sm:text-base">
-              <thead className="border-b border-[#4ade80]/30">
-                <tr>
-                  <th className="text-left py-3 sm:py-4 px-3 sm:px-4 font-semibold text-[#4ade80]">Full Name</th>
-                  <th className="text-left py-3 sm:py-4 px-3 sm:px-4 font-semibold text-[#4ade80]">Email</th>
-                  <th className="text-left py-3 sm:py-4 px-3 sm:px-4 font-semibold text-[#4ade80]">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {registrations.map((registration) => (
-                  <tr key={registration._id} className="border-b border-[#065f46] hover:bg-[#065f46]/30 transition-colors">
-                    <td className="py-3 sm:py-4 px-3 sm:px-4 text-[#d1fae5]">{registration.fullName}</td>
-                    <td className="py-3 sm:py-4 px-3 sm:px-4 text-[#d1fae5]">{registration.email}</td>
-                    <td className="py-3 sm:py-4 px-3 sm:px-4 space-x-2">
-                      <EditRegistrationDialog
-                        registration={registration}
-                        onSave={handleSaveEdit}
-                        trigger={
-                          <button className="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium text-xs sm:text-sm transition-colors">
-                            Edit
-                          </button>
-                        }
-                      />
-                      <button 
-                        onClick={() => handleDelete(registration._id)}
-                        className="px-3 py-1.5 sm:px-4 sm:py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium text-xs sm:text-sm transition-colors"
-                      >
-                        Delete
+          <div className="space-y-3">
+            <div className="grid grid-cols-3 gap-4 px-4 py-3 border-b-2 border-[#4ade80]/50">
+              <div className="font-semibold text-[#4ade80] text-sm sm:text-base">Full Name</div>
+              <div className="font-semibold text-[#4ade80] text-sm sm:text-base">Email</div>
+              <div className="font-semibold text-[#4ade80] text-sm sm:text-base">Actions</div>
+            </div>
+            
+            {registrations.map((registration, index) => (
+              <div 
+                key={registration._id} 
+                className="grid grid-cols-3 gap-4 px-4 py-4 bg-[#065f46]/20 hover:bg-[#065f46]/40 rounded-xl transition-all border border-[#4ade80]/20"
+              >
+                <div className="text-[#d1fae5] font-medium text-sm sm:text-base flex items-center">
+                  {registration.fullName}
+                </div>
+                <div className="text-[#a7f3d0] text-sm sm:text-base flex items-center break-all">
+                  {registration.email}
+                </div>
+                <div className="flex items-center gap-2">
+                  <EditRegistrationDialog
+                    registration={registration}
+                    onSave={handleSaveEdit}
+                    trigger={
+                      <button className="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium text-xs sm:text-sm transition-colors">
+                        Edit
                       </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    }
+                  />
+                  <button 
+                    onClick={() => handleDelete(registration._id)}
+                    className="px-3 py-1.5 sm:px-4 sm:py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium text-xs sm:text-sm transition-colors"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>
