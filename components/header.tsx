@@ -41,16 +41,9 @@ export function Header() {
               height={40}
               className="object-contain sm:w-12 sm:h-12"
             />
-            <div>
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-[#4ade80] to-[#22c55e] bg-clip-text text-transparent">
-                Green World
-              </h1>
-              <p className="text-xs sm:text-sm text-emerald-200/90 leading-tight">
-                Together we protect our planet
-                <br />
-                Building a sustainable future for all
-              </p>
-            </div>
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-[#4ade80] to-[#22c55e] bg-clip-text text-transparent">
+              Green World
+            </h1>
           </Link>
         </div>
       </div>

@@ -8,6 +8,11 @@ export default function Home() {
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#4ade80] to-[#22c55e] bg-clip-text text-transparent mb-3">
             Register Now
           </h1>
+          <p className="text-sm sm:text-base text-emerald-200/90 leading-relaxed">
+            Together we protect our planet
+            <br />
+            Building a sustainable future for all
+          </p>
         </div>
         <RegistrationForm />
       </div>
