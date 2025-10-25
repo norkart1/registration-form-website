@@ -111,24 +111,28 @@ export function AdminDashboard() {
           <p className="text-center text-[#a7f3d0] py-12 text-base sm:text-lg">No registrations yet</p>
         ) : (
           <div className="space-y-3">
-            <div className="grid grid-cols-3 gap-4 px-4 py-3 border-b-2 border-[#4ade80]/50">
+            <div className="grid grid-cols-[auto_1fr_1fr_auto] gap-4 px-4 py-3 border-b-2 border-[#4ade80]/50">
+              <div className="font-semibold text-[#4ade80] text-sm sm:text-base">#</div>
               <div className="font-semibold text-[#4ade80] text-sm sm:text-base">Full Name</div>
               <div className="font-semibold text-[#4ade80] text-sm sm:text-base">Email</div>
-              <div className="font-semibold text-[#4ade80] text-sm sm:text-base">Actions</div>
+              <div className="font-semibold text-[#4ade80] text-sm sm:text-base text-right">Actions</div>
             </div>
             
             {registrations.map((registration, index) => (
               <div 
                 key={registration._id} 
-                className="grid grid-cols-3 gap-4 px-4 py-4 bg-[#065f46]/20 hover:bg-[#065f46]/40 rounded-xl transition-all border border-[#4ade80]/20"
+                className="grid grid-cols-[auto_1fr_1fr_auto] gap-4 px-4 py-4 bg-[#065f46]/20 hover:bg-[#065f46]/40 rounded-xl transition-all border border-[#4ade80]/20"
               >
+                <div className="text-[#a7f3d0] font-medium text-sm sm:text-base flex items-center">
+                  {index + 1}
+                </div>
                 <div className="text-[#d1fae5] font-medium text-sm sm:text-base flex items-center">
                   {registration.fullName}
                 </div>
                 <div className="text-[#a7f3d0] text-sm sm:text-base flex items-center break-all">
                   {registration.email}
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 justify-end">
                   <EditRegistrationDialog
                     registration={registration}
                     onSave={handleSaveEdit}
