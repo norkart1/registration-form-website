@@ -64,22 +64,20 @@ export function RegistrationForm() {
   return (
     <>
       <Dialog open={showSuccess} onOpenChange={setShowSuccess}>
-        <DialogContent className="bg-white border-0 p-0 sm:max-w-md overflow-hidden" showCloseButton={false}>
-          <div className="bg-gradient-to-br from-[#7bc74d] to-[#65b93d] py-12 px-6 flex flex-col items-center justify-center">
-            <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-transparent">
-              <CheckCircle2 className="h-12 w-12 text-white stroke-[3]" />
+        <DialogContent className="bg-gradient-to-br from-[#064e3b] to-[#065f46] border-emerald-500/30 p-6 sm:max-w-sm" showCloseButton={false}>
+          <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20 border-2 border-emerald-400">
+              <CheckCircle2 className="h-10 w-10 text-emerald-400" />
             </div>
-            <h2 className="text-white text-2xl font-semibold tracking-wider">
+            <h2 className="text-xl font-bold text-emerald-100">
               SUCCESS
             </h2>
-          </div>
-          <div className="bg-white px-8 py-10 text-center">
-            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-              Congratulations, your account has been successfully created.
+            <p className="text-emerald-200/90 text-sm">
+              Your account has been successfully created!
             </p>
             <button
               onClick={() => setShowSuccess(false)}
-              className="bg-gradient-to-r from-[#7bc74d] to-[#65b93d] hover:from-[#6ab33d] hover:to-[#58a32d] text-white font-medium py-3 px-12 rounded-full text-base transition-all duration-200 shadow-lg hover:shadow-xl"
+              className="w-full mt-2 py-2.5 px-6 warm-button rounded-lg text-white font-semibold text-sm"
             >
               Continue
             </button>
