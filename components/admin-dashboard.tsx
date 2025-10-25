@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
 import { EditRegistrationDialog } from "./edit-registration-dialog"
+import { Pencil, Trash2 } from "lucide-react"
 
 interface Registration {
   _id: string
@@ -132,16 +133,18 @@ export function AdminDashboard() {
                     registration={registration}
                     onSave={handleSaveEdit}
                     trigger={
-                      <button className="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium text-xs sm:text-sm transition-colors">
-                        Edit
+                      <button className="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 flex items-center gap-1.5 shadow-sm hover:shadow-md">
+                        <Pencil className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                        <span>Edit</span>
                       </button>
                     }
                   />
                   <button 
                     onClick={() => handleDelete(registration._id)}
-                    className="px-3 py-1.5 sm:px-4 sm:py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium text-xs sm:text-sm transition-colors"
+                    className="px-3 py-1.5 sm:px-4 sm:py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 flex items-center gap-1.5 shadow-sm hover:shadow-md"
                   >
-                    Delete
+                    <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    <span>Delete</span>
                   </button>
                 </div>
               </div>
