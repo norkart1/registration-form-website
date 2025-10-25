@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
 import { EditRegistrationDialog } from "./edit-registration-dialog"
+import { DeleteConfirmationDialog } from "./delete-confirmation-dialog"
 import { Pencil, Trash2 } from "lucide-react"
 
 interface Registration {
@@ -20,6 +21,8 @@ export function AdminDashboard() {
   const [loading, setLoading] = useState(true)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editData, setEditData] = useState<Registration | null>(null)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
 
   useEffect(() => {
     fetchRegistrations()
@@ -42,18 +45,24 @@ export function AdminDashboard() {
     }
   }
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this registration?")) return
+  const openDeleteDialog = (id: string) => {
+    setDeletingId(id)
+    setDeleteDialogOpen(true)
+  }
+
+  const handleDelete = async () => {
+    if (!deletingId) return
 
     try {
-      const response = await fetch(`/api/registrations/${id}`, { method: "DELETE" })
+      const response = await fetch(`/api/registrations/${deletingId}`, { method: "DELETE" })
       if (!response.ok) throw new Error("Failed to delete")
 
-      setRegistrations((prev) => prev.filter((r) => r._id !== id))
+      setRegistrations((prev) => prev.filter((r) => r._id !== deletingId))
       toast({
         title: "Success",
         description: "Registration deleted successfully",
       })
+      setDeletingId(null)
     } catch (error) {
       toast({
         title: "Error",
@@ -101,6 +110,11 @@ export function AdminDashboard() {
 
   return (
     <div className="space-y-6">
+      <DeleteConfirmationDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={handleDelete}
+      />
       <div className="warm-card rounded-2xl p-6 sm:p-8">
         <div className="mb-6">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#d1fae5] mb-2">Registrations</h2>
@@ -143,7 +157,7 @@ export function AdminDashboard() {
                     }
                   />
                   <button 
-                    onClick={() => handleDelete(registration._id)}
+                    onClick={() => openDeleteDialog(registration._id)}
                     className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md"
                   >
                     <Trash2 className="w-4 h-4" />

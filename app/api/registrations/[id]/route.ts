@@ -4,15 +4,16 @@ import clientPromise from "@/lib/mongodb"
 const DB_NAME = "registration_db"
 const COLLECTION_NAME = "registrations"
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const body = await request.json()
     const { fullName, email } = body
+    const { id } = await params
 
     const client = await clientPromise
     const db = client.db(DB_NAME)
     const result = await db.collection(COLLECTION_NAME).updateOne(
-      { _id: new ObjectId(params.id) },
+      { _id: new ObjectId(id) },
       {
         $set: {
           fullName,
@@ -33,12 +34,13 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     const client = await clientPromise
     const db = client.db(DB_NAME)
     const result = await db.collection(COLLECTION_NAME).deleteOne({
-      _id: new ObjectId(params.id),
+      _id: new ObjectId(id),
     })
 
     if (result.deletedCount === 0) {
