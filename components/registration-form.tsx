@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { useToast } from "@/hooks/use-toast"
-import { User, Mail, LogIn, CheckCircle2 } from "lucide-react"
+import { User, Mail, LogIn, CheckCircle2, AlertCircle } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -16,6 +16,8 @@ export function RegistrationForm() {
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
+  const [showError, setShowError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -30,11 +32,14 @@ export function RegistrationForm() {
     e.preventDefault()
 
     if (!formData.fullName || !formData.email) {
-      toast({
-        title: "Error",
-        description: "Please fill in all fields",
-        variant: "destructive",
-      })
+      setErrorMessage("Please fill in all fields")
+      setShowError(true)
+      return
+    }
+
+    if (!formData.email.includes('@')) {
+      setErrorMessage("Please enter a valid email address")
+      setShowError(true)
       return
     }
 
@@ -46,16 +51,16 @@ export function RegistrationForm() {
         body: JSON.stringify(formData),
       })
 
-      if (!response.ok) throw new Error("Failed to submit form")
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.message || "Failed to submit registration")
+      }
 
       setFormData({ fullName: "", email: "" })
       setShowSuccess(true)
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to submit registration",
-        variant: "destructive",
-      })
+      setErrorMessage(error instanceof Error ? error.message : "Failed to submit registration. Please try again.")
+      setShowError(true)
     } finally {
       setLoading(false)
     }
@@ -80,6 +85,28 @@ export function RegistrationForm() {
               className="w-full mt-2 py-2.5 px-6 warm-button rounded-lg text-white font-semibold text-sm"
             >
               Continue
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showError} onOpenChange={setShowError}>
+        <DialogContent className="bg-gradient-to-br from-[#7f1d1d] to-[#991b1b] border-red-500/30 p-6 sm:max-w-sm" showCloseButton={false}>
+          <div className="flex flex-col items-center text-center space-y-4">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-500/20 border-2 border-red-400">
+              <AlertCircle className="h-10 w-10 text-red-400" />
+            </div>
+            <h2 className="text-xl font-bold text-red-100">
+              ERROR
+            </h2>
+            <p className="text-red-200/90 text-sm">
+              {errorMessage}
+            </p>
+            <button
+              onClick={() => setShowError(false)}
+              className="w-full mt-2 py-2.5 px-6 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 rounded-lg text-white font-semibold text-sm transition-all"
+            >
+              Try Again
             </button>
           </div>
         </DialogContent>
