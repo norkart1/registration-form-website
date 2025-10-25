@@ -6,7 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/hooks/use-toast"
 import { EditRegistrationDialog } from "./edit-registration-dialog"
 import { DeleteConfirmationDialog } from "./delete-confirmation-dialog"
-import { Pencil, Trash2 } from "lucide-react"
+import { exportToExcel, exportToPDF } from "@/lib/export-utils"
+import { Pencil, Trash2, FileSpreadsheet, FileText } from "lucide-react"
 
 interface Registration {
   _id: string
@@ -116,9 +117,29 @@ export function AdminDashboard() {
         onConfirm={handleDelete}
       />
       <div className="warm-card rounded-2xl p-6 sm:p-8">
-        <div className="mb-6">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#d1fae5] mb-2">Registrations</h2>
-          <p className="text-[#a7f3d0] text-sm sm:text-base">Total: {registrations.length} registrations</p>
+        <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#d1fae5] mb-2">Registrations</h2>
+            <p className="text-[#a7f3d0] text-sm sm:text-base">Total: {registrations.length} registrations</p>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => exportToExcel(registrations, 'registrations-export')}
+              className="flex items-center gap-2 px-4 py-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium text-sm transition-all duration-200 shadow-sm hover:shadow-md"
+            >
+              <FileSpreadsheet className="w-4 h-4" />
+              <span className="hidden sm:inline">Export Excel</span>
+              <span className="sm:hidden">Excel</span>
+            </button>
+            <button
+              onClick={() => exportToPDF(registrations, 'registrations-export')}
+              className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium text-sm transition-all duration-200 shadow-sm hover:shadow-md"
+            >
+              <FileText className="w-4 h-4" />
+              <span className="hidden sm:inline">Export PDF</span>
+              <span className="sm:hidden">PDF</span>
+            </button>
+          </div>
         </div>
         
         {registrations.length === 0 ? (
