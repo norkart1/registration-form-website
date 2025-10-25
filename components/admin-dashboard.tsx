@@ -133,18 +133,16 @@ export function AdminDashboard() {
                     registration={registration}
                     onSave={handleSaveEdit}
                     trigger={
-                      <button className="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 flex items-center gap-1.5 shadow-sm hover:shadow-md">
-                        <Pencil className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                        <span>Edit</span>
+                      <button className="p-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md">
+                        <Pencil className="w-4 h-4" />
                       </button>
                     }
                   />
                   <button 
                     onClick={() => handleDelete(registration._id)}
-                    className="px-3 py-1.5 sm:px-4 sm:py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 flex items-center gap-1.5 shadow-sm hover:shadow-md"
+                    className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md"
                   >
-                    <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                    <span>Delete</span>
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
               </div>
