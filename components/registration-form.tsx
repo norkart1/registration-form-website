@@ -3,11 +3,19 @@
 import type React from "react"
 import { useState } from "react"
 import { useToast } from "@/hooks/use-toast"
-import { User, Mail, LogIn } from "lucide-react"
+import { User, Mail, LogIn, CheckCircle2 } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
 export function RegistrationForm() {
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -40,12 +48,8 @@ export function RegistrationForm() {
 
       if (!response.ok) throw new Error("Failed to submit form")
 
-      toast({
-        title: "Success",
-        description: "Registration submitted successfully!",
-      })
-
       setFormData({ fullName: "", email: "" })
+      setShowSuccess(true)
     } catch (error) {
       toast({
         title: "Error",
@@ -58,7 +62,32 @@ export function RegistrationForm() {
   }
 
   return (
-    <div className="warm-card rounded-2xl p-6 sm:p-8 lg:p-10">
+    <>
+      <Dialog open={showSuccess} onOpenChange={setShowSuccess}>
+        <DialogContent className="bg-gradient-to-br from-[#064e3b] to-[#065f46] border-emerald-500/30 sm:max-w-md">
+          <DialogHeader>
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20">
+              <CheckCircle2 className="h-10 w-10 text-emerald-400" />
+            </div>
+            <DialogTitle className="text-center text-2xl font-bold text-emerald-100">
+              Registration Successful!
+            </DialogTitle>
+            <DialogDescription className="text-center text-emerald-200/90 text-base">
+              Thank you for joining Green World. Together we'll build a sustainable future!
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-4">
+            <button
+              onClick={() => setShowSuccess(false)}
+              className="w-full py-3 px-4 warm-button rounded-lg text-white font-semibold text-base"
+            >
+              Close
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <div className="warm-card rounded-2xl p-6 sm:p-8 lg:p-10">
       <div className="mb-6 sm:mb-8">
         <h2 className="text-xl sm:text-2xl font-bold text-[#d1fae5] mb-1 sm:mb-2">Registration Form</h2>
         <p className="text-[#a7f3d0] text-sm sm:text-base">Please provide your information below</p>
@@ -116,5 +145,6 @@ export function RegistrationForm() {
         </button>
       </form>
     </div>
+    </>
   )
 }
