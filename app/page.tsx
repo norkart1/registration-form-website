@@ -9,9 +9,7 @@ export default function Home() {
             Register Now
           </h1>
           <p className="text-sm sm:text-base text-emerald-200/90 leading-relaxed">
-            Together we protect our planet
-            <br />
-            Building a sustainable future for all
+            Together we protect our planet and build a sustainable future for all
           </p>
         </div>
         <RegistrationForm />
