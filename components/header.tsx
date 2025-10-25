@@ -3,10 +3,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { AdminProfileDropdown } from './admin-profile-dropdown'
 
 export function Header() {
   const [isVisible, setIsVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const pathname = usePathname()
+  
+  const isAdminPage = pathname?.startsWith('/admin/dashboard')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +37,7 @@ export function Header() {
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center justify-between gap-2 sm:gap-3">
           <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity">
             <Image
               src="/logo.png"
@@ -45,6 +50,12 @@ export function Header() {
               Green World
             </h1>
           </Link>
+          
+          {isAdminPage && (
+            <div className="ml-auto">
+              <AdminProfileDropdown />
+            </div>
+          )}
         </div>
       </div>
     </header>
