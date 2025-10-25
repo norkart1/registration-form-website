@@ -46,190 +46,28 @@
 
 ---
 
-## 📱 Demo Mockups
+## 📱 Screenshots
 
-### Desktop View
+### Mobile Views
 
-#### 🏠 Registration Form (Home Page)
-```
-┌────────────────────────────────────────────────────────────────────────────┐
-│  🌐 Registration Form                                     Admin Login →     │
-├────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│                     ╔═══════════════════════════════╗                      │
-│                     ║                               ║                      │
-│                     ║    📝 Registration Form       ║                      │
-│                     ║    ─────────────────────      ║                      │
-│                     ║                               ║                      │
-│                     ║    👤 Full Name               ║                      │
-│                     ║    ┌─────────────────────┐   ║                      │
-│                     ║    │ Enter your name...  │   ║                      │
-│                     ║    └─────────────────────┘   ║                      │
-│                     ║                               ║                      │
-│                     ║    ✉️  Email Address          ║                      │
-│                     ║    ┌─────────────────────┐   ║                      │
-│                     ║    │ your@email.com...   │   ║                      │
-│                     ║    └─────────────────────┘   ║                      │
-│                     ║                               ║                      │
-│                     ║    ┌─────────────────────┐   ║                      │
-│                     ║    │  Submit Registration │   ║                      │
-│                     ║    └─────────────────────┘   ║                      │
-│                     ║         (Orange Gradient)     ║                      │
-│                     ╚═══════════════════════════════╝                      │
-│                                                                             │
-│                         Glassmorphic Card Design                           │
-│                         with Warm Brown/Orange Theme                        │
-│                                                                             │
-└────────────────────────────────────────────────────────────────────────────┘
-```
+#### 📱 Registration Form
+<div align="center">
+  <img src="./public/screenshots/mobile-registration.jpg" alt="Mobile Registration Form" width="300">
+  <p><em>Simple registration form with Full Name and Email fields</em></p>
+</div>
 
-#### 🔐 Admin Login Page
-```
-┌────────────────────────────────────────────────────────────────────────────┐
-│  🌐 Admin Login                                          ← Back to Home    │
-├────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│                     ╔═══════════════════════════════╗                      │
-│                     ║                               ║                      │
-│                     ║    🔐 Admin Login             ║                      │
-│                     ║    ─────────────              ║                      │
-│                     ║                               ║                      │
-│                     ║    Username                   ║                      │
-│                     ║    ┌─────────────────────┐   ║                      │
-│                     ║    │ Enter username...   │   ║                      │
-│                     ║    └─────────────────────┘   ║                      │
-│                     ║                               ║                      │
-│                     ║    Password                   ║                      │
-│                     ║    ┌─────────────────────┐   ║                      │
-│                     ║    │ ••••••••••••••••    │   ║                      │
-│                     ║    └─────────────────────┘   ║                      │
-│                     ║                               ║                      │
-│                     ║    ┌─────────────────────┐   ║                      │
-│                     ║    │    🚀 Login         │   ║                      │
-│                     ║    └─────────────────────┘   ║                      │
-│                     ║                               ║                      │
-│                     ╚═══════════════════════════════╝                      │
-│                                                                             │
-└────────────────────────────────────────────────────────────────────────────┘
-```
+#### 🔐 Admin Login
+<div align="center">
+  <img src="./public/screenshots/mobile-admin-login.jpg" alt="Mobile Admin Login" width="300">
+  <p><em>Secure admin login with username and password</em></p>
+</div>
 
-#### 📊 Admin Dashboard
-```
-┌────────────────────────────────────────────────────────────────────────────┐
-│  📊 Admin Dashboard                                    👤 Admin  [Logout]  │
-├────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  📝 Registrations                              [📥 Export PDF] [📊 Excel]  │
-│  ─────────────────────────────────────────────────────────────────────     │
-│                                                                             │
-│  ┌──────────────────────────────────────────────────────────────────────┐ │
-│  │ #  │ Full Name        │ Email                  │ Created    │ Actions││ │
-│  ├────┼──────────────────┼────────────────────────┼────────────┼────────┤│ │
-│  │ 1  │ John Doe         │ john@example.com       │ Oct 24     │ ✏️  🗑️ ││ │
-│  │ 2  │ Jane Smith       │ jane@example.com       │ Oct 24     │ ✏️  🗑️ ││ │
-│  │ 3  │ Bob Johnson      │ bob@example.com        │ Oct 25     │ ✏️  🗑️ ││ │
-│  │ 4  │ Alice Williams   │ alice@example.com      │ Oct 25     │ ✏️  🗑️ ││ │
-│  │ 5  │ Charlie Brown    │ charlie@example.com    │ Oct 25     │ ✏️  🗑️ ││ │
-│  └──────────────────────────────────────────────────────────────────────┘ │
-│                                                                             │
-│  Showing 5 registrations                                                   │
-│                                                                             │
-└────────────────────────────────────────────────────────────────────────────┘
-```
-
-### Mobile View
-
-#### 📱 Mobile Registration Form
-```
-┌─────────────────────────┐
-│  ☰  Registration   🔐   │
-├─────────────────────────┤
-│                         │
-│  ╔═══════════════════╗  │
-│  ║                   ║  │
-│  ║  📝 Registration  ║  │
-│  ║  Form             ║  │
-│  ║  ────────         ║  │
-│  ║                   ║  │
-│  ║  👤 Full Name     ║  │
-│  ║  ┌──────────────┐ ║  │
-│  ║  │ Enter name.. │ ║  │
-│  ║  └──────────────┘ ║  │
-│  ║                   ║  │
-│  ║  ✉️  Email        ║  │
-│  ║  ┌──────────────┐ ║  │
-│  ║  │ your@email.. │ ║  │
-│  ║  └──────────────┘ ║  │
-│  ║                   ║  │
-│  ║  ┌──────────────┐ ║  │
-│  ║  │   Submit     │ ║  │
-│  ║  └──────────────┘ ║  │
-│  ║                   ║  │
-│  ╚═══════════════════╝  │
-│                         │
-│  Touch-optimized design │
-│  Large input fields     │
-│                         │
-└─────────────────────────┘
-```
-
-#### 📱 Mobile Admin Dashboard
-```
-┌─────────────────────────┐
-│  ☰  Dashboard   [Logout]│
-├─────────────────────────┤
-│                         │
-│  📝 Registrations       │
-│  [📥 PDF] [📊 Excel]    │
-│                         │
-│  ┌───────────────────┐  │
-│  │ John Doe          │  │
-│  │ john@example.com  │  │
-│  │ Oct 24, 2025      │  │
-│  │ [✏️ Edit] [🗑️ Del] │  │
-│  └───────────────────┘  │
-│                         │
-│  ┌───────────────────┐  │
-│  │ Jane Smith        │  │
-│  │ jane@example.com  │  │
-│  │ Oct 24, 2025      │  │
-│  │ [✏️ Edit] [🗑️ Del] │  │
-│  └───────────────────┘  │
-│                         │
-│  ┌───────────────────┐  │
-│  │ Bob Johnson       │  │
-│  │ bob@example.com   │  │
-│  │ Oct 25, 2025      │  │
-│  │ [✏️ Edit] [🗑️ Del] │  │
-│  └───────────────────┘  │
-│                         │
-│  Card-based layout      │
-│  for mobile             │
-│                         │
-└─────────────────────────┘
-```
-
-### Tablet View
-```
-┌──────────────────────────────────────────────────┐
-│  📊 Dashboard                    👤 [Logout]     │
-├──────────────────────────────────────────────────┤
-│                                                  │
-│  📝 Registrations          [📥 PDF] [📊 Excel]  │
-│  ────────────────────────────────────────────   │
-│                                                  │
-│  ┌──────────────────────────────────────────┐   │
-│  │ Name           │ Email           │ Actions│   │
-│  ├────────────────┼─────────────────┼────────┤   │
-│  │ John Doe       │ john@example.com│ ✏️  🗑️ │   │
-│  │ Jane Smith     │ jane@example.com│ ✏️  🗑️ │   │
-│  │ Bob Johnson    │ bob@example.com │ ✏️  🗑️ │   │
-│  └──────────────────────────────────────────┘   │
-│                                                  │
-│  Optimized for 768px - 1024px screens           │
-│                                                  │
-└──────────────────────────────────────────────────┘
-```
+### Features Showcase
+- ✅ **Responsive Design** - Optimized for all screen sizes
+- ✅ **Green Theme** - Modern green gradient with glassmorphic effects
+- ✅ **Touch-Friendly** - Large input fields and buttons for mobile
+- ✅ **Clean UI** - Simple, intuitive user interface
+- ✅ **Icon Support** - Beautiful Lucide icons throughout the app
 
 ---
 
