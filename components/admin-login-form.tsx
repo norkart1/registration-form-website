@@ -4,7 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/hooks/use-toast"
-import { User, Lock, LogIn, AlertCircle } from "lucide-react"
+import { User, Lock, LogIn, AlertCircle, Eye, EyeOff } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -16,6 +16,7 @@ export function AdminLoginForm() {
   const [loading, setLoading] = useState(false)
   const [showError, setShowError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
   const [credentials, setCredentials] = useState({ username: "", password: "" })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,13 +128,24 @@ export function AdminLoginForm() {
             <input
               id="password"
               name="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Enter password"
               value={credentials.password}
               onChange={handleChange}
               required
-              className="w-full pl-12 pr-4 py-2.5 sm:py-3 warm-input rounded-lg text-sm sm:text-base"
+              className="w-full pl-12 pr-12 py-2.5 sm:py-3 warm-input rounded-lg text-sm sm:text-base"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 pr-4 flex items-center text-[#10b981] hover:text-[#4ade80] transition-colors"
+            >
+              {showPassword ? (
+                <EyeOff className="h-5 w-5 sm:h-6 sm:w-6" />
+              ) : (
+                <Eye className="h-5 w-5 sm:h-6 sm:w-6" />
+              )}
+            </button>
           </div>
         </div>
 
