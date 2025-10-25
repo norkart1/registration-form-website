@@ -512,7 +512,7 @@ Create admin user (⚠️ Secure this endpoint in production!)
 - **Package Manager:** npm 10.8.2
 - **Build Tool:** Next.js built-in
 - **Code Quality:** ESLint
-- **Deployment:** Replit (supports Vercel)
+- **Deployment:** Supports Vercel and other cloud platforms
 
 ---
 
@@ -605,14 +605,6 @@ Add to `.gitignore`:
 ---
 
 ## 🚀 Deployment
-
-### Deploy to Replit (Current Platform)
-
-1. **Push your code to Replit**
-2. **Add environment secret:**
-   - Key: `MONGODB_URI`
-   - Value: Your MongoDB connection string
-3. **Click "Run"** - Server starts automatically on port 5000
 
 ### Deploy to Vercel
 
@@ -758,7 +750,6 @@ Contributions are welcome! Here's how you can help:
 - 🎨 Implemented warm brown/orange gradient theme
 - 💎 Added glassmorphic card design
 - 🔥 Fixed slow form submission with connection pooling
-- 🚀 Migrated from Vercel to Replit
 - 📦 Updated to Next.js 16 and React 19
 
 ### v1.0.0 - Initial Release
