@@ -2,11 +2,33 @@
 
 ## Overview
 
-A full-stack registration form application built with Next.js 16, React 19, and MongoDB. The application provides a public-facing registration form where users can submit their details (full name, WhatsApp number, mobile number, email, profile image), along with a secure admin dashboard for managing submissions and editing registrations. The system features token-based authentication, data export capabilities (PDF/Excel), and a modern glassmorphic UI with a warm green/emerald color scheme.
-
-**Note**: Currently the form displays full name and email fields. Additional fields (WhatsApp number, mobile number, profile image upload) need to be added to match the full registration requirements.
+A full-stack registration form application built with Next.js 16, React 19, and MongoDB. The application provides a public-facing registration form where users can submit their details (full name, WhatsApp number, mobile number, email, profile image), along with a secure admin dashboard for managing submissions and editing registrations. The system features token-based authentication, data export capabilities (PDF/Excel), secure image upload validation, and a modern glassmorphic UI with a warm green/emerald color scheme.
 
 ## Recent Changes
+
+### November 5, 2025 - Complete Registration Form Implementation
+- ✅ **Added WhatsApp Number field** with phone icon and validation
+- ✅ **Added Mobile Number field** with phone icon and validation
+- ✅ **Added Profile Image Upload** with:
+  - Drag & drop / click to upload interface
+  - Image preview before submission
+  - Client-side validation (5MB limit, image types only)
+  - Server-side validation (MIME type allowlist: JPEG, PNG, GIF, WebP)
+  - Base64 encoding for storage
+  - Remove/replace image functionality
+- ✅ **Updated API endpoints** with comprehensive server-side validation:
+  - POST /api/registrations: Create with all fields including image
+  - PUT /api/registrations/[id]: Update with image replacement/removal support
+  - Validates image type, size, and format on server
+- ✅ **Enhanced admin dashboard** to display all new fields:
+  - Profile image thumbnails in table view
+  - Horizontal scroll for wide table on mobile
+  - All fields visible and editable
+- ✅ **Updated edit dialog** with full field editing including image upload
+- ✅ **Enhanced export utilities**:
+  - PDF exports include all fields + "Image" indicator column (landscape mode)
+  - Excel exports include all fields + "Has Profile Image" column
+- 🔒 **Security improvements**: Server-side image validation, MIME type restrictions, size limits
 
 ### November 5, 2025 - Vercel to Replit Migration
 - Successfully migrated project from Vercel to Replit environment
@@ -88,7 +110,7 @@ Preferred communication style: Simple, everyday language.
 **Database Structure**:
 - Database name: `registration_db`
 - Collections:
-  - `registrations` - User submissions (fullName, email, createdAt, updatedAt)
+  - `registrations` - User submissions (fullName, whatsappNumber, mobileNumber, email, profileImage, createdAt, updatedAt)
   - `admin_users` - Admin accounts (username, password hash, createdAt)
 
 **Data Model**:
@@ -96,7 +118,10 @@ Preferred communication style: Simple, everyday language.
 Registration {
   _id: ObjectId
   fullName: string
+  whatsappNumber: string
+  mobileNumber: string
   email: string
+  profileImage?: string (base64 encoded)
   createdAt: Date
   updatedAt?: Date
 }
