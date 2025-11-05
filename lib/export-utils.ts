@@ -5,7 +5,10 @@ import autoTable from 'jspdf-autotable'
 interface Registration {
   _id: string
   fullName: string
+  whatsappNumber: string
+  mobileNumber: string
   email: string
+  profileImage?: string
   createdAt: string
 }
 
@@ -14,7 +17,10 @@ export const exportToExcel = (data: Registration[], filename: string = 'registra
   const exportData = data.map((item, index) => ({
     '#': index + 1,
     'Full Name': item.fullName,
+    'WhatsApp Number': item.whatsappNumber || 'N/A',
+    'Mobile Number': item.mobileNumber || 'N/A',
     'Email': item.email,
+    'Has Profile Image': item.profileImage ? 'Yes' : 'No',
     'Created At': new Date(item.createdAt).toLocaleDateString()
   }))
 
@@ -25,7 +31,10 @@ export const exportToExcel = (data: Registration[], filename: string = 'registra
   const columnWidths = [
     { wch: 5 },  // #
     { wch: 25 }, // Full Name
+    { wch: 18 }, // WhatsApp Number
+    { wch: 18 }, // Mobile Number
     { wch: 30 }, // Email
+    { wch: 18 }, // Has Profile Image
     { wch: 15 }  // Created At
   ]
   worksheet['!cols'] = columnWidths
@@ -39,7 +48,7 @@ export const exportToExcel = (data: Registration[], filename: string = 'registra
 }
 
 export const exportToPDF = (data: Registration[], filename: string = 'registrations') => {
-  const doc = new jsPDF()
+  const doc = new jsPDF('landscape')
 
   // Add title
   doc.setFontSize(18)
@@ -51,11 +60,14 @@ export const exportToPDF = (data: Registration[], filename: string = 'registrati
   doc.text(`Generated: ${new Date().toLocaleDateString()}`, 14, 28)
 
   // Prepare table data
-  const headers = [['#', 'Full Name', 'Email', 'Created At']]
+  const headers = [['#', 'Full Name', 'WhatsApp', 'Mobile', 'Email', 'Image', 'Created At']]
   const rows = data.map((item, index) => [
     String(index + 1),
     item.fullName,
+    item.whatsappNumber || 'N/A',
+    item.mobileNumber || 'N/A',
     item.email,
+    item.profileImage ? 'Yes' : 'No',
     new Date(item.createdAt).toLocaleDateString()
   ])
 
@@ -66,20 +78,23 @@ export const exportToPDF = (data: Registration[], filename: string = 'registrati
     startY: 35,
     theme: 'grid',
     headStyles: {
-      fillColor: [16, 185, 129], // Green color matching your theme
+      fillColor: [16, 185, 129],
       textColor: 255,
       fontStyle: 'bold',
       halign: 'center'
     },
     styles: {
-      fontSize: 10,
-      cellPadding: 3,
+      fontSize: 8,
+      cellPadding: 2,
     },
     columnStyles: {
-      0: { cellWidth: 15, halign: 'center' },
-      1: { cellWidth: 50 },
-      2: { cellWidth: 70 },
-      3: { cellWidth: 40, halign: 'center' }
+      0: { cellWidth: 12, halign: 'center' },
+      1: { cellWidth: 45 },
+      2: { cellWidth: 35 },
+      3: { cellWidth: 35 },
+      4: { cellWidth: 55 },
+      5: { cellWidth: 18, halign: 'center' },
+      6: { cellWidth: 30, halign: 'center' }
     },
     alternateRowStyles: {
       fillColor: [245, 245, 245]

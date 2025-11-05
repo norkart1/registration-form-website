@@ -12,7 +12,10 @@ import { Pencil, Trash2, FileSpreadsheet, FileText } from "lucide-react"
 interface Registration {
   _id: string
   fullName: string
+  whatsappNumber: string
+  mobileNumber: string
   email: string
+  profileImage?: string
   createdAt: string
 }
 
@@ -145,47 +148,69 @@ export function AdminDashboard() {
         {registrations.length === 0 ? (
           <p className="text-center text-[#a7f3d0] py-12 text-base sm:text-lg">No registrations yet</p>
         ) : (
-          <div className="space-y-3">
-            <div className="grid grid-cols-[auto_1fr_1fr_auto] gap-4 px-4 py-3 border-b-2 border-[#4ade80]/50">
-              <div className="font-semibold text-[#4ade80] text-sm sm:text-base">#</div>
-              <div className="font-semibold text-[#4ade80] text-sm sm:text-base">Full Name</div>
-              <div className="font-semibold text-[#4ade80] text-sm sm:text-base">Email</div>
-              <div className="font-semibold text-[#4ade80] text-sm sm:text-base text-right">Actions</div>
-            </div>
-            
-            {registrations.map((registration, index) => (
-              <div 
-                key={registration._id} 
-                className="grid grid-cols-[auto_1fr_1fr_auto] gap-4 px-4 py-4 bg-[#065f46]/20 hover:bg-[#065f46]/40 rounded-xl transition-all border border-[#4ade80]/20"
-              >
-                <div className="text-[#a7f3d0] font-medium text-sm sm:text-base flex items-center">
-                  {index + 1}
-                </div>
-                <div className="text-[#d1fae5] font-medium text-sm sm:text-base flex items-center">
-                  {registration.fullName}
-                </div>
-                <div className="text-[#a7f3d0] text-sm sm:text-base flex items-center break-all">
-                  {registration.email}
-                </div>
-                <div className="flex items-center gap-2 justify-end">
-                  <EditRegistrationDialog
-                    registration={registration}
-                    onSave={handleSaveEdit}
-                    trigger={
-                      <button className="p-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md">
-                        <Pencil className="w-4 h-4" />
-                      </button>
-                    }
-                  />
-                  <button 
-                    onClick={() => openDeleteDialog(registration._id)}
-                    className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
+          <div className="overflow-x-auto">
+            <div className="min-w-[800px] space-y-3">
+              <div className="grid grid-cols-[auto_60px_1fr_120px_120px_1fr_auto] gap-3 px-4 py-3 border-b-2 border-[#4ade80]/50">
+                <div className="font-semibold text-[#4ade80] text-sm">#</div>
+                <div className="font-semibold text-[#4ade80] text-sm">Image</div>
+                <div className="font-semibold text-[#4ade80] text-sm">Full Name</div>
+                <div className="font-semibold text-[#4ade80] text-sm">WhatsApp</div>
+                <div className="font-semibold text-[#4ade80] text-sm">Mobile</div>
+                <div className="font-semibold text-[#4ade80] text-sm">Email</div>
+                <div className="font-semibold text-[#4ade80] text-sm text-right">Actions</div>
               </div>
-            ))}
+              
+              {registrations.map((registration, index) => (
+                <div 
+                  key={registration._id} 
+                  className="grid grid-cols-[auto_60px_1fr_120px_120px_1fr_auto] gap-3 px-4 py-3 bg-[#065f46]/20 hover:bg-[#065f46]/40 rounded-xl transition-all border border-[#4ade80]/20"
+                >
+                  <div className="text-[#a7f3d0] font-medium text-sm flex items-center">
+                    {index + 1}
+                  </div>
+                  <div className="flex items-center">
+                    {registration.profileImage ? (
+                      <img 
+                        src={registration.profileImage} 
+                        alt={registration.fullName}
+                        className="w-12 h-12 rounded-lg object-cover border border-[#4ade80]/30"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 rounded-lg bg-[#065f46]/50 border border-[#4ade80]/30" />
+                    )}
+                  </div>
+                  <div className="text-[#d1fae5] font-medium text-sm flex items-center">
+                    {registration.fullName}
+                  </div>
+                  <div className="text-[#a7f3d0] text-sm flex items-center">
+                    {registration.whatsappNumber || 'N/A'}
+                  </div>
+                  <div className="text-[#a7f3d0] text-sm flex items-center">
+                    {registration.mobileNumber || 'N/A'}
+                  </div>
+                  <div className="text-[#a7f3d0] text-sm flex items-center break-all">
+                    {registration.email}
+                  </div>
+                  <div className="flex items-center gap-2 justify-end">
+                    <EditRegistrationDialog
+                      registration={registration}
+                      onSave={handleSaveEdit}
+                      trigger={
+                        <button className="p-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md">
+                          <Pencil className="w-4 h-4" />
+                        </button>
+                      }
+                    />
+                    <button 
+                      onClick={() => openDeleteDialog(registration._id)}
+                      className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

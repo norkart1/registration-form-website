@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { useToast } from "@/hooks/use-toast"
-import { User, Mail, LogIn, CheckCircle2, AlertCircle } from "lucide-react"
+import { User, Mail, LogIn, CheckCircle2, AlertCircle, Phone, MessageCircle, Upload, X } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -18,8 +18,12 @@ export function RegistrationForm() {
   const [showSuccess, setShowSuccess] = useState(false)
   const [showError, setShowError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
+  const [profileImage, setProfileImage] = useState<string>("")
+  const [imagePreview, setImagePreview] = useState<string>("")
   const [formData, setFormData] = useState({
     fullName: "",
+    whatsappNumber: "",
+    mobileNumber: "",
     email: "",
   })
 
@@ -28,10 +32,34 @@ export function RegistrationForm() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        setErrorMessage("Image size must be less than 5MB")
+        setShowError(true)
+        return
+      }
+
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        const base64String = reader.result as string
+        setProfileImage(base64String)
+        setImagePreview(base64String)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const removeImage = () => {
+    setProfileImage("")
+    setImagePreview("")
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!formData.fullName || !formData.email) {
+    if (!formData.fullName || !formData.whatsappNumber || !formData.mobileNumber || !formData.email) {
       setErrorMessage("Please fill in all fields")
       setShowError(true)
       return
@@ -43,12 +71,21 @@ export function RegistrationForm() {
       return
     }
 
+    if (!profileImage) {
+      setErrorMessage("Please upload a profile image")
+      setShowError(true)
+      return
+    }
+
     setLoading(true)
     try {
       const response = await fetch("/api/registrations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          profileImage,
+        }),
       })
 
       if (!response.ok) {
@@ -56,7 +93,9 @@ export function RegistrationForm() {
         throw new Error(errorData.message || "Failed to submit registration")
       }
 
-      setFormData({ fullName: "", email: "" })
+      setFormData({ fullName: "", whatsappNumber: "", mobileNumber: "", email: "" })
+      setProfileImage("")
+      setImagePreview("")
       setShowSuccess(true)
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : "Failed to submit registration. Please try again.")
@@ -140,6 +179,48 @@ export function RegistrationForm() {
         </div>
 
         <div className="space-y-2">
+          <label htmlFor="whatsappNumber" className="block text-sm sm:text-base font-semibold text-[#d1fae5] mb-2">
+            WhatsApp Number
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 text-[#4ade80]" />
+            </div>
+            <input
+              id="whatsappNumber"
+              name="whatsappNumber"
+              type="tel"
+              placeholder="Enter your WhatsApp number"
+              value={formData.whatsappNumber}
+              onChange={handleInputChange}
+              required
+              className="w-full pl-12 pr-4 py-2.5 sm:py-3 warm-input rounded-lg text-sm sm:text-base"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="mobileNumber" className="block text-sm sm:text-base font-semibold text-[#d1fae5] mb-2">
+            Mobile Number
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-[#10b981]" />
+            </div>
+            <input
+              id="mobileNumber"
+              name="mobileNumber"
+              type="tel"
+              placeholder="Enter your mobile number"
+              value={formData.mobileNumber}
+              onChange={handleInputChange}
+              required
+              className="w-full pl-12 pr-4 py-2.5 sm:py-3 warm-input rounded-lg text-sm sm:text-base"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
           <label htmlFor="email" className="block text-sm sm:text-base font-semibold text-[#d1fae5] mb-2">
             Email
           </label>
@@ -157,6 +238,48 @@ export function RegistrationForm() {
               required
               className="w-full pl-12 pr-4 py-2.5 sm:py-3 warm-input rounded-lg text-sm sm:text-base"
             />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label htmlFor="profileImage" className="block text-sm sm:text-base font-semibold text-[#d1fae5] mb-2">
+            Profile Image
+          </label>
+          <div className="space-y-3">
+            {imagePreview ? (
+              <div className="relative inline-block">
+                <img
+                  src={imagePreview}
+                  alt="Profile preview"
+                  className="h-32 w-32 rounded-lg object-cover border-2 border-emerald-500/30"
+                />
+                <button
+                  type="button"
+                  onClick={removeImage}
+                  className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 transition-colors"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            ) : (
+              <label
+                htmlFor="profileImage"
+                className="flex flex-col items-center justify-center w-full h-32 border-2 border-emerald-500/30 border-dashed rounded-lg cursor-pointer hover:border-emerald-500/50 transition-colors warm-input"
+              >
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <Upload className="h-8 w-8 text-emerald-400 mb-2" />
+                  <p className="text-sm text-emerald-200">Click to upload profile image</p>
+                  <p className="text-xs text-emerald-300/60 mt-1">PNG, JPG up to 5MB</p>
+                </div>
+                <input
+                  id="profileImage"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                />
+              </label>
+            )}
           </div>
         </div>
 
