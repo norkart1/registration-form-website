@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     }
 
     if (profileImage.length > 7 * 1024 * 1024) {
-      return Response.json({ error: "Image too large. Maximum size is 5MB" }, { status: 400 })
+      return Response.json({ error: "Image too large. Maximum size is 7MB" }, { status: 400 })
     }
 
     const allowedTypes = ["data:image/jpeg", "data:image/jpg", "data:image/png", "data:image/gif", "data:image/webp"]
