@@ -2,9 +2,9 @@
 
 ## Overview
 
-A full-stack registration form application built with Next.js 16 and React 19, featuring a modern green-themed UI with glassmorphic design. The application provides a public-facing registration form and a secure admin dashboard for managing registrations, with data export capabilities and WhatsApp integration.
+A full-stack registration form application built with Next.js 16 and React 19, featuring a modern green-themed UI with glassmorphic design. The application provides a public-facing registration form and a secure admin dashboard for managing registrations, with data export capabilities.
 
-**Core Purpose**: Enable users to register with their details (name, contact information, profile image) and provide administrators with a comprehensive interface to view, edit, delete, and export registration data.
+**Core Purpose**: Enable users to register with their details (name, contact information, profile image) and provide administrators with a mobile-friendly interface to view, edit, delete, and export registration data.
 
 ## User Preferences
 
@@ -34,8 +34,9 @@ Preferred communication style: Simple, everyday language.
 
 **Key UI Features**
 - Real-time form validation with instant feedback
-- Image upload with preview (base64 encoding, max 5MB)
-- Responsive design (mobile-first approach)
+- Image upload with preview (base64 encoding, max 7MB)
+- Fully responsive design (mobile-first approach)
+- Mobile-friendly card-based layout for admin dashboard (no horizontal scrolling)
 - Auto-hiding header on scroll
 - Export functionality (PDF and Excel)
 - Success/error dialogs for user feedback
@@ -142,17 +143,6 @@ Preferred communication style: Simple, everyday language.
 
 ### Third-Party Services
 
-**WhatsApp Cloud API Integration**
-- **Purpose**: Send automated messages to registered users
-- **API Version**: v21.0
-- **Authentication**: Bearer token (access token)
-- **Configuration Required**:
-  - `WHATSAPP_ACCESS_TOKEN`: Meta Business API access token
-  - `WHATSAPP_PHONE_NUMBER_ID`: WhatsApp Business phone number ID
-  - `WHATSAPP_BUSINESS_PHONE`: Business phone number
-- **Implementation**: `/lib/whatsapp.ts` utility for message sending
-- **Status**: Infrastructure present, integration ready but not actively used in current flow
-
 **Vercel Analytics**
 - **Purpose**: Performance monitoring and usage analytics
 - **Integration**: `@vercel/analytics/next` package
@@ -210,9 +200,6 @@ Preferred communication style: Simple, everyday language.
 
 ```
 MONGODB_URI=mongodb://...
-WHATSAPP_ACCESS_TOKEN=...
-WHATSAPP_PHONE_NUMBER_ID=...
-WHATSAPP_BUSINESS_PHONE=...
 ```
 
 ### Development Tools

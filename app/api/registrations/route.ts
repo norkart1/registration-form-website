@@ -1,6 +1,5 @@
 import clientPromise from "@/lib/mongodb"
 import { MongoClient } from "mongodb"
-import { sendWhatsAppMessage, getWhatsAppConfig } from "@/lib/whatsapp"
 
 const DB_NAME = "registration_db"
 const COLLECTION_NAME = "registrations"
@@ -56,19 +55,6 @@ export async function POST(request: Request) {
       profileImage,
       createdAt: new Date(),
     })
-
-    // Send WhatsApp confirmation message
-    try {
-      const whatsappConfig = getWhatsAppConfig()
-      await sendWhatsAppMessage(whatsappConfig, {
-        to: whatsappNumber,
-        message: `Hello ${fullName}! 👋\n\nThank you for registering with us. Your registration has been successfully completed.\n\nRegistration Details:\n- Name: ${fullName}\n- Email: ${email}\n- WhatsApp: ${whatsappNumber}\n- Mobile: ${mobileNumber}\n\nWe'll contact you shortly for further updates.\n\nBest regards,\nTeam`
-      })
-      console.log(`WhatsApp message sent successfully to ${whatsappNumber}`)
-    } catch (whatsappError) {
-      console.error("Failed to send WhatsApp message:", whatsappError)
-      // Don't fail the registration if WhatsApp fails, just log it
-    }
 
     return Response.json({ success: true, _id: result.insertedId }, { status: 201 })
   } catch (error) {

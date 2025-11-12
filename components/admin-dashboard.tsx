@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast"
 import { EditRegistrationDialog } from "./edit-registration-dialog"
 import { DeleteConfirmationDialog } from "./delete-confirmation-dialog"
 import { exportToExcel, exportToPDF } from "@/lib/export-utils"
-import { Pencil, Trash2, FileSpreadsheet, FileText } from "lucide-react"
+import { Pencil, Trash2, FileSpreadsheet, FileText, User, MessageCircle, Phone, Mail } from "lucide-react"
 
 interface Registration {
   _id: string
@@ -119,28 +119,26 @@ export function AdminDashboard() {
         onOpenChange={setDeleteDialogOpen}
         onConfirm={handleDelete}
       />
-      <div className="warm-card rounded-2xl p-6 sm:p-8">
+      <div className="warm-card rounded-2xl p-4 sm:p-6 lg:p-8">
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#d1fae5] mb-2">Registrations</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#d1fae5] mb-2">Registrations</h2>
             <p className="text-[#a7f3d0] text-sm sm:text-base">Total: {registrations.length} registrations</p>
           </div>
           <div className="flex gap-2">
             <button
               onClick={() => exportToExcel(registrations, 'registrations-export')}
-              className="flex items-center gap-2 px-4 py-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium text-sm transition-all duration-200 shadow-sm hover:shadow-md"
+              className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium text-sm transition-all duration-200 shadow-sm hover:shadow-md"
             >
               <FileSpreadsheet className="w-4 h-4" />
-              <span className="hidden sm:inline">Export Excel</span>
-              <span className="sm:hidden">Excel</span>
+              <span className="hidden sm:inline">Excel</span>
             </button>
             <button
               onClick={() => exportToPDF(registrations, 'registrations-export')}
-              className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium text-sm transition-all duration-200 shadow-sm hover:shadow-md"
+              className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium text-sm transition-all duration-200 shadow-sm hover:shadow-md"
             >
               <FileText className="w-4 h-4" />
-              <span className="hidden sm:inline">Export PDF</span>
-              <span className="sm:hidden">PDF</span>
+              <span className="hidden sm:inline">PDF</span>
             </button>
           </div>
         </div>
@@ -148,69 +146,77 @@ export function AdminDashboard() {
         {registrations.length === 0 ? (
           <p className="text-center text-[#a7f3d0] py-12 text-base sm:text-lg">No registrations yet</p>
         ) : (
-          <div className="overflow-x-auto">
-            <div className="min-w-[800px] space-y-3">
-              <div className="grid grid-cols-[auto_60px_1fr_120px_120px_1fr_auto] gap-3 px-4 py-3 border-b-2 border-[#4ade80]/50">
-                <div className="font-semibold text-[#4ade80] text-sm">#</div>
-                <div className="font-semibold text-[#4ade80] text-sm">Image</div>
-                <div className="font-semibold text-[#4ade80] text-sm">Full Name</div>
-                <div className="font-semibold text-[#4ade80] text-sm">WhatsApp</div>
-                <div className="font-semibold text-[#4ade80] text-sm">Mobile</div>
-                <div className="font-semibold text-[#4ade80] text-sm">Email</div>
-                <div className="font-semibold text-[#4ade80] text-sm text-right">Actions</div>
-              </div>
-              
-              {registrations.map((registration, index) => (
-                <div 
-                  key={registration._id} 
-                  className="grid grid-cols-[auto_60px_1fr_120px_120px_1fr_auto] gap-3 px-4 py-3 bg-[#065f46]/20 hover:bg-[#065f46]/40 rounded-xl transition-all border border-[#4ade80]/20"
-                >
-                  <div className="text-[#a7f3d0] font-medium text-sm flex items-center">
-                    {index + 1}
+          <div className="space-y-4">
+            {registrations.map((registration, index) => (
+              <div 
+                key={registration._id} 
+                className="bg-[#065f46]/20 hover:bg-[#065f46]/30 rounded-xl border border-[#4ade80]/20 p-4 transition-all"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="relative">
+                      {registration.profileImage ? (
+                        <img 
+                          src={registration.profileImage} 
+                          alt={registration.fullName}
+                          className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg object-cover border-2 border-[#4ade80]/30"
+                        />
+                      ) : (
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg bg-[#065f46]/50 border-2 border-[#4ade80]/30 flex items-center justify-center">
+                          <User className="w-8 h-8 text-[#4ade80]/50" />
+                        </div>
+                      )}
+                      <div className="absolute -top-2 -left-2 w-6 h-6 bg-[#10b981] rounded-full flex items-center justify-center text-white text-xs font-bold">
+                        {index + 1}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    {registration.profileImage ? (
-                      <img 
-                        src={registration.profileImage} 
-                        alt={registration.fullName}
-                        className="w-12 h-12 rounded-lg object-cover border border-[#4ade80]/30"
+                  
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg sm:text-xl font-bold text-[#d1fae5] mb-3 break-words">
+                      {registration.fullName}
+                    </h3>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-[#a7f3d0] text-sm">
+                        <MessageCircle className="w-4 h-4 flex-shrink-0 text-[#4ade80]" />
+                        <span className="break-all">{registration.whatsappNumber || 'N/A'}</span>
+                      </div>
+                      
+                      <div className="flex items-center gap-2 text-[#a7f3d0] text-sm">
+                        <Phone className="w-4 h-4 flex-shrink-0 text-[#4ade80]" />
+                        <span className="break-all">{registration.mobileNumber || 'N/A'}</span>
+                      </div>
+                      
+                      <div className="flex items-center gap-2 text-[#a7f3d0] text-sm">
+                        <Mail className="w-4 h-4 flex-shrink-0 text-[#4ade80]" />
+                        <span className="break-all">{registration.email}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex gap-2 mt-4">
+                      <EditRegistrationDialog
+                        registration={registration}
+                        onSave={handleSaveEdit}
+                        trigger={
+                          <button className="flex-1 sm:flex-none px-4 py-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-sm hover:shadow-md font-medium text-sm">
+                            <Pencil className="w-4 h-4" />
+                            <span>Edit</span>
+                          </button>
+                        }
                       />
-                    ) : (
-                      <div className="w-12 h-12 rounded-lg bg-[#065f46]/50 border border-[#4ade80]/30" />
-                    )}
-                  </div>
-                  <div className="text-[#d1fae5] font-medium text-sm flex items-center">
-                    {registration.fullName}
-                  </div>
-                  <div className="text-[#a7f3d0] text-sm flex items-center">
-                    {registration.whatsappNumber || 'N/A'}
-                  </div>
-                  <div className="text-[#a7f3d0] text-sm flex items-center">
-                    {registration.mobileNumber || 'N/A'}
-                  </div>
-                  <div className="text-[#a7f3d0] text-sm flex items-center break-all">
-                    {registration.email}
-                  </div>
-                  <div className="flex items-center gap-2 justify-end">
-                    <EditRegistrationDialog
-                      registration={registration}
-                      onSave={handleSaveEdit}
-                      trigger={
-                        <button className="p-2 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md">
-                          <Pencil className="w-4 h-4" />
-                        </button>
-                      }
-                    />
-                    <button 
-                      onClick={() => openDeleteDialog(registration._id)}
-                      className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                      <button 
+                        onClick={() => openDeleteDialog(registration._id)}
+                        className="flex-1 sm:flex-none px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-sm hover:shadow-md font-medium text-sm"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        <span>Delete</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         )}
       </div>
